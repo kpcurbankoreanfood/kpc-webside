@@ -1,0 +1,11 @@
+{
+  "name": "kpc-urban-korean-food",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "build": "echo 'Build complete'"
+  },
+  "dependencies": {
+    "stripe": "^17.7.0"
+  }
+}
