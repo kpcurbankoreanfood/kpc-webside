@@ -30,7 +30,7 @@ module.exports = async (req, res) => {
       payment_method_types: ['card'],
       line_items: lineItems,
       mode: 'payment',
-      success_url: `https://kpcurbankoreanfood.com/order-confirmation?order=${orderId}`,
+      success_url: `https://kpcurbankoreanfood.com/?payment=success&order=${orderId}`,
       cancel_url: `https://kpcurbankoreanfood.com/`,
       customer_email: customerEmail,
     });
