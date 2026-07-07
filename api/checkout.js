@@ -1,11 +1,10 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 module.exports = async (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
   if (req.method === 'OPTIONS') {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     res.status(200).end();
     return;
   }
@@ -20,10 +19,12 @@ module.exports = async (req, res) => {
     const lineItems = items.map(item => ({
       price_data: {
         currency: 'usd',
-        product_data: { name: item.name },
+        product_data: {
+          name: item.name,
+        },
         unit_amount: Math.round(item.price * 100),
       },
-n      quantity: item.quantity,
+      quantity: item.quantity,
     }));
 
     const session = await stripe.checkout.sessions.create({
