@@ -1,21 +1,33 @@
 {
-  "outputDirectory": "dist",
-  "rewrites": [
+  "builds": [
     {
-      "source": "/api/checkout",
-      "destination": "/api/checkout.js"
+      "src": "api/checkout.js",
+      "use": "@vercel/node"
     },
     {
-      "source": "/admin",
-      "destination": "/dist/index.html"
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/checkout",
+      "dest": "/api/checkout.js"
     },
     {
-      "source": "/order-confirmation",
-      "destination": "/dist/index.html"
+      "src": "/admin",
+      "dest": "/index.html"
     },
     {
-      "source": "/(.*)",
-      "destination": "/dist/index.html"
+      "src": "/order-confirmation",
+      "dest": "/index.html"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ]
 }
