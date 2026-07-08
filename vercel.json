@@ -6,6 +6,14 @@
       "destination": "/api/checkout.js"
     },
     {
+      "source": "/admin",
+      "destination": "/dist/index.html"
+    },
+    {
+      "source": "/order-confirmation",
+      "destination": "/dist/index.html"
+    },
+    {
       "source": "/(.*)",
       "destination": "/dist/index.html"
     }
