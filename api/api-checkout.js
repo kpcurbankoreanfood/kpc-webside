@@ -1,7 +1,5 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
-// In-memory orders storage (will persist while function is warm)
-// For production, consider using a database
 let ordersStore = [];
 
 module.exports = async (req, res) => {
@@ -14,7 +12,6 @@ module.exports = async (req, res) => {
     return;
   }
 
-  // GET request to retrieve orders
   if (req.method === 'GET') {
     return res.json({ orders: ordersStore });
   }
@@ -26,7 +23,6 @@ module.exports = async (req, res) => {
   try {
     const { items, customerEmail, customerName, customerPhone, orderId } = req.body;
 
-    // Store order before creating Stripe session
     const orderData = {
       id: orderId,
       customerName: customerName || '',
@@ -40,7 +36,6 @@ module.exports = async (req, res) => {
     };
     
     ordersStore.unshift(orderData);
-    // Keep only last 100 orders
     if (ordersStore.length > 100) {
       ordersStore = ordersStore.slice(0, 100);
     }
@@ -68,7 +63,6 @@ module.exports = async (req, res) => {
       },
     });
 
-    // Update order with payment session info
     const orderIndex = ordersStore.findIndex(o => o.id === orderId);
     if (orderIndex !== -1) {
       ordersStore[orderIndex].paymentStatus = 'processing';
